@@ -1,0 +1,127 @@
+use vitcampus;
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) UNIQUE NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+
+desc Persons;
+
+insert into Persons values 
+(101,'V','Jayanth',21),
+(102,'Kumar','Rahul',22),
+(103,'Sharma','Sneha',20),
+(104,'Reddy','Arjun',23),
+(105,'Patel','Meena',19);
+
+select * from Persons;
+
+ALTER TABLE Persons
+ADD UNIQUE (Age);
+
+ALTER TABLE Persons
+DROP INDEX Age;
+
+drop table Persons;
+
+CREATE TABLE Persons (
+    ID int PRIMARY KEY,
+    Age int NOT NULL,
+    CHECK (Age>=18 and Age<=23)
+);
+
+insert into Persons values
+(101,21),
+(102,22),
+(103,20),
+(104,23),
+(105,19);
+
+select * from Persons;
+
+CREATE TABLE Persons1 (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Coimbatore'
+);
+
+desc Persons1;
+
+insert into Persons1(ID,LastName,FirstName,Age) values
+(201,'Kumar','Ravi',21),
+(202,'Sharma','Anita',22),
+(203,'Singh','Vijay',20),
+(204,'Patel','Deepa',23),
+(205,'Reddy','Kiran',19);
+
+select * from Persons1;
+
+create table products(
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    prefNo int NOT NULL UNIQUE
+);
+
+desc products;
+
+insert into products values
+(101,'Laptop',19930),
+(102,'Furniture',19931),
+(103,'Mobile',19932),
+(104,'Printer',19933),
+(105,'Keyboard',19934);
+
+select * from products;
+
+ALTER TABLE Persons
+ADD PRIMARY KEY (ID);
+
+ALTER TABLE Persons
+DROP PRIMARY KEY;
+
+drop table products;
+
+create table category(
+    cid int primary key,
+    cname varchar(100) NOT NULL
+);
+
+insert into category values
+(101,'Electronics'),
+(102,'Home Appliances'),
+(103,'Furniture'),
+(104,'Accessories'),
+(105,'Stationery');
+
+select * from category;
+
+CREATE TABLE products (
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    cid int,
+    FOREIGN KEY (cid) REFERENCES category(cid)
+);
+
+desc products;
+
+insert into products values
+(501,'Power Bank Samsung',101),
+(502,'LED TV',101),
+(503,'Sofa Set',103),
+(504,'Mixer Grinder',102),
+(505,'Wireless Mouse',104);
+
+select * from products;
+
+delete from category where cid=105;
+
+update products
+set pname='Gaming Keyboard'
+where pid=505;
+
+select * from category;
+select * from products;

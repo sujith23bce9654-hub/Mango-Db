@@ -1,0 +1,128 @@
+use vitcampus;
+
+create table persons(
+id int not null,
+lastname varchar(255) unique not null,
+firstname varchar(255) not null,
+age int
+);
+
+desc persons;
+
+insert into persons values (101,'Reddy','Ajay',20);
+insert into persons values (102,'Kumar','Rahul',21);
+insert into persons values (103,'Sharma','Neha',22);
+insert into persons values (104,'Naidu','Kiran',19);
+insert into persons values (105,'Varma','Sneha',23);
+
+select * from persons;
+
+alter table persons
+add unique(age);
+
+alter table persons
+drop index age;
+
+drop table persons;
+
+create table persons(
+age int not null,
+check(age>=18 and age<=23)
+);
+
+insert into persons values (18);
+insert into persons values (19);
+insert into persons values (20);
+insert into persons values (21);
+insert into persons values (22);
+
+select * from persons;
+
+create table persons1(
+id int not null,
+lastname varchar(255) not null,
+firstname varchar(255),
+age int,
+city varchar(255) default 'Coimbatore'
+);
+
+desc persons1;
+
+insert into persons1(id,lastname,firstname,age) values (101,'Reddy','Arjun',20);
+insert into persons1(id,lastname,firstname,age) values (102,'Kumar','Divya',21);
+insert into persons1(id,lastname,firstname,age) values (103,'Naidu','Varun',22);
+insert into persons1(id,lastname,firstname,age) values (104,'Sharma','Meena',19);
+insert into persons1(id,lastname,firstname,age) values (105,'Patel','Ravi',23);
+
+select * from persons1;
+
+alter table persons1
+add primary key(id);
+
+desc persons1;
+
+create table department(
+did int primary key,
+dname varchar(100) not null
+);
+
+insert into department values (1,'CSE');
+insert into department values (2,'ECE');
+insert into department values (3,'EEE');
+insert into department values (4,'MECH');
+insert into department values (5,'CIVIL');
+
+select * from department;
+
+create table students(
+sid int primary key,
+sname varchar(100) not null,
+did int,
+foreign key(did) references department(did)
+);
+
+desc students;
+
+insert into students values (201,'Rahul',1);
+insert into students values (202,'Sneha',2);
+insert into students values (203,'Kiran',3);
+insert into students values (204,'Ajay',4);
+insert into students values (205,'Megha',5);
+
+select * from students;
+
+create table category(
+cid int primary key,
+cname varchar(100) not null
+);
+
+insert into category values (101,'Electronics');
+insert into category values (102,'Home Appliances');
+insert into category values (103,'Furniture');
+insert into category values (104,'Accessories');
+insert into category values (105,'Stationery');
+
+select * from category;
+
+create table products(
+pid int primary key,
+pname varchar(100) not null,
+cid int,
+foreign key(cid) references category(cid)
+);
+
+desc products;
+
+insert into products values (301,'Laptop',101);
+insert into products values (302,'Washing Machine',102);
+insert into products values (303,'Chair',103);
+insert into products values (304,'Headphones',104);
+insert into products values (305,'Notebook',105);
+
+select * from products;
+
+update category
+set cname='Electronic Devices'
+where cid=101;
+
+select * from category;
